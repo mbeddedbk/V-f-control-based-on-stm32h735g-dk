@@ -1,0 +1,31 @@
+3.0.8
+- Upgraded to TouchGFX 4.18.1
+- Upgraded to STM32CubeMX 6.4.0
+- Upgraded to Firmware Package FW_H7 1.9.1
+
+3.0.7
+- Upgraded to TouchGFX 4.18.0
+- Updated the Makefile to use texts.xml isntead of texts.xlsx
+
+3.0.6
+- Removed generation of .bin files for the external flash section
+- Fixed the PIN mapping of the OCTOSPI according to the schematics
+- Updated the FreeRTOS files
+
+3.0.5
+- Upgraded to STM32CubeMX 6.3.0
+- Added Animation Storage
+
+3.0.4
+- Upgraded to TouchGFX 4.17.0
+- Upgraded to STM32CubeMX 6.2.1
+- Upgraded to Firmware Package FW_H7 1.9.0
+- Added DefaultTask to allow IP integration out of STM32CubeMX
+
+3.0.3
+- Corrected invalid IAR device identifier
+- Fixed OSPI initilization code to support addressing 8MB of RAM
+
+3.0.2
+- Added support for Cube Programmer 2.6
+- Upgraded to CubeMX version 6.0.1

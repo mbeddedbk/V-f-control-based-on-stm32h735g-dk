@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextDatabase xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="texts.xsd" Version="4.18.1">
+  <Texts>
+    <Text Id="__SingleUse_94HL" TypographyId="Default" Alignment="Center" Direction="LTR">
+      <Translation Language="GB">7</Translation>
+    </Text>
+    <Text Id="__SingleUse_OL4T" TypographyId="Default" Alignment="Center" Direction="LTR">
+      <Translation Language="GB">8</Translation>
+    </Text>
+    <Text Id="__SingleUse_HHUS" TypographyId="Default" Alignment="Center" Direction="LTR">
+      <Translation Language="GB">9</Translation>
+    </Text>
+    <Text Id="__SingleUse_60D0" TypographyId="Default" Alignment="Center" Direction="LTR">
+      <Translation Language="GB">4</Translation>
+    </Text>
+    <Text Id="__SingleUse_RU25" TypographyId="Default" Alignment="Center" Direction="LTR">
+      <Translation Language="GB">5</Translation>
+    </Text>
+    <Text Id="__SingleUse_6NQT" TypographyId="Default" Alignment="Center" Direction="LTR">
+      <Translation Language="GB">6</Translation>
+    </Text>
+    <Text Id="__SingleUse_HPDQ" TypographyId="Default" Alignment="Center" Direction="LTR">
+      <Translation Language="GB">1</Translation>
+    </Text>
+    <Text Id="__SingleUse_YHU1" TypographyId="Default" Alignment="Center" Direction="LTR">
+      <Translation Language="GB">2</Translation>
+    </Text>
+    <Text Id="__SingleUse_MX1A" TypographyId="Default" Alignment="Center" Direction="LTR">
+      <Translation Language="GB">3</Translation>
+    </Text>
+    <Text Id="__SingleUse_JGIE" TypographyId="Default" Alignment="Center" Direction="LTR">
+      <Translation Language="GB">C</Translation>
+    </Text>
+    <Text Id="__SingleUse_O1X3" TypographyId="Default" Alignment="Center" Direction="LTR">
+      <Translation Language="GB">0</Translation>
+    </Text>
+    <Text Id="__SingleUse_E5UB" TypographyId="Default" Alignment="Center" Direction="LTR">
+      <Translation Language="GB">S</Translation>
+    </Text>
+    <Text Id="__SingleUse_IO59" TypographyId="Typography_00" Alignment="Center" Direction="LTR">
+      <Translation Language="GB">Modulation &#10;Index</Translation>
+    </Text>
+    <Text Id="__SingleUse_X3GJ" TypographyId="Typography_00" Alignment="Center" Direction="LTR">
+      <Translation Language="GB">Frequency of the &#10;Carrier</Translation>
+    </Text>
+    <Text Id="Freq" TypographyId="Default" Alignment="Center" Direction="LTR">
+      <Translation Language="GB">&lt;value&gt; kHz</Translation>
+    </Text>
+    <Text Id="MI" TypographyId="Default" Alignment="Center" Direction="LTR">
+      <Translation Language="GB">&lt;number&gt;</Translation>
+    </Text>
+    <Text Id="__SingleUse_8CQK" TypographyId="Default" Alignment="Left" Direction="LTR">
+      <Translation Language="GB">5</Translation>
+    </Text>
+    <Text Id="__SingleUse_LXQE" TypographyId="Default" Alignment="Left" Direction="LTR">
+      <Translation Language="GB">0.8</Translation>
+    </Text>
+  </Texts>
+  <Typographies>
+    <Typography Id="Default" Font="verdana.ttf" Size="30" Bpp="4" FallbackCharacter="?" />
+    <Typography Id="Large" Font="verdana.ttf" Size="40" Bpp="4" FallbackCharacter="?" />
+    <Typography Id="Small" Font="verdana.ttf" Size="10" Bpp="4" FallbackCharacter="?" />
+    <Typography Id="Typography_00" Font="verdana.ttf" Size="20" Bpp="4" FallbackCharacter="?" />
+  </Typographies>
+</TextDatabase>
