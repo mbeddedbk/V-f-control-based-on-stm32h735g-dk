@@ -30,6 +30,7 @@ enum TEXTS
     T_MI,
     T___SINGLEUSE_8CQK,
     T___SINGLEUSE_LXQE,
+    T___SINGLEUSE_LPWK,
     NUMBER_OF_TEXT_KEYS
 };
 

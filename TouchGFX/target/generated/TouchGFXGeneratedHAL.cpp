@@ -28,8 +28,8 @@ using namespace touchgfx;
 
 namespace
 {
-static uint16_t lcd_int_active_line;
-static uint16_t lcd_int_porch_line;
+    static uint16_t lcd_int_active_line;
+    static uint16_t lcd_int_porch_line;
 }
 
 void TouchGFXGeneratedHAL::initialize()

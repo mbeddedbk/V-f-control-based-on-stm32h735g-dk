@@ -10,10 +10,11 @@
 #include <touchgfx/widgets/Box.hpp>
 #include <touchgfx/widgets/ButtonWithLabel.hpp>
 #include <touchgfx/widgets/ButtonWithIcon.hpp>
-#include <touchgfx/widgets/Image.hpp>
 #include <touchgfx/widgets/BoxWithBorder.hpp>
 #include <touchgfx/widgets/TextAreaWithWildcard.hpp>
 #include <touchgfx/widgets/TextArea.hpp>
+#include <touchgfx/widgets/ToggleButton.hpp>
+#include <touchgfx/widgets/ScalableImage.hpp>
 
 class Screen1ViewBase : public touchgfx::View<Screen1Presenter>
 {
@@ -90,6 +91,26 @@ public:
         // Override and implement this function in Screen1
     }
 
+    virtual void buttonDotClicked()
+    {
+        // Override and implement this function in Screen1
+    }
+
+    virtual void buttonFreqToggled()
+    {
+        // Override and implement this function in Screen1
+    }
+
+    virtual void buttonMIToggled()
+    {
+        // Override and implement this function in Screen1
+    }
+
+    virtual void buttonPowerClicked()
+    {
+        // Override and implement this function in Screen1
+    }
+
 protected:
     FrontendApplication& application() {
         return *static_cast<FrontendApplication*>(touchgfx::Application::getInstance());
@@ -113,13 +134,25 @@ protected:
     touchgfx::ButtonWithLabel button0;
     touchgfx::ButtonWithLabel buttonSend;
     touchgfx::ButtonWithIcon buttonSwitch;
-    touchgfx::Image image1;
     touchgfx::BoxWithBorder boxWithBorder1_1;
     touchgfx::BoxWithBorder boxWithBorder1;
     touchgfx::TextAreaWithOneWildcard textAreaFreq;
     touchgfx::TextAreaWithOneWildcard textAreaMI;
     touchgfx::TextArea textArea2;
     touchgfx::TextArea textArea2_1;
+    touchgfx::ButtonWithLabel buttonDot;
+    touchgfx::ToggleButton toggleButtonFreq;
+    touchgfx::ToggleButton toggleButtonMI;
+    touchgfx::ButtonWithIcon buttonPower;
+    touchgfx::ScalableImage scalableImage1;
+
+    /*
+     * Wildcard Buffers
+     */
+    static const uint16_t TEXTAREAFREQ_SIZE = 3;
+    touchgfx::Unicode::UnicodeChar textAreaFreqBuffer[TEXTAREAFREQ_SIZE];
+    static const uint16_t TEXTAREAMI_SIZE = 4;
+    touchgfx::Unicode::UnicodeChar textAreaMIBuffer[TEXTAREAMI_SIZE];
 
 private:
 

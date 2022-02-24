@@ -38,22 +38,25 @@
       <Translation Language="GB">S</Translation>
     </Text>
     <Text Id="__SingleUse_IO59" TypographyId="Typography_00" Alignment="Center" Direction="LTR">
-      <Translation Language="GB">Modulation &#10;Index</Translation>
+      <Translation Language="GB">M.I.</Translation>
     </Text>
     <Text Id="__SingleUse_X3GJ" TypographyId="Typography_00" Alignment="Center" Direction="LTR">
-      <Translation Language="GB">Frequency of the &#10;Carrier</Translation>
+      <Translation Language="GB">Frequency</Translation>
     </Text>
     <Text Id="Freq" TypographyId="Default" Alignment="Center" Direction="LTR">
-      <Translation Language="GB">&lt;value&gt; kHz</Translation>
+      <Translation Language="GB">&lt;value&gt; Hz</Translation>
     </Text>
     <Text Id="MI" TypographyId="Default" Alignment="Center" Direction="LTR">
       <Translation Language="GB">&lt;number&gt;</Translation>
     </Text>
     <Text Id="__SingleUse_8CQK" TypographyId="Default" Alignment="Left" Direction="LTR">
-      <Translation Language="GB">5</Translation>
+      <Translation Language="GB">50</Translation>
     </Text>
     <Text Id="__SingleUse_LXQE" TypographyId="Default" Alignment="Left" Direction="LTR">
       <Translation Language="GB">0.8</Translation>
+    </Text>
+    <Text Id="__SingleUse_LPWK" TypographyId="Default" Alignment="Center" Direction="LTR">
+      <Translation Language="GB">.</Translation>
     </Text>
   </Texts>
   <Typographies>

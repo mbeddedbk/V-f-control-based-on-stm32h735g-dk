@@ -105,40 +105,63 @@ Screen1ViewBase::Screen1ViewBase() :
     buttonSwitch.setIconXY(15, 16);
     buttonSwitch.setAction(buttonCallback);
 
-    image1.setXY(182, 136);
-    image1.setBitmap(touchgfx::Bitmap(BITMAP_BLUE_DIVIDERS_DIVIDER_EXTRA_SHORT_ID));
-
-    boxWithBorder1_1.setPosition(290, 16, 185, 120);
+    boxWithBorder1_1.setPosition(247, 5, 121, 82);
     boxWithBorder1_1.setColor(touchgfx::Color::getColorFromRGB(87, 14, 14));
     boxWithBorder1_1.setBorderColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     boxWithBorder1_1.setBorderSize(5);
 
-    boxWithBorder1.setPosition(290, 135, 185, 121);
+    boxWithBorder1.setPosition(372, 5, 100, 82);
     boxWithBorder1.setColor(touchgfx::Color::getColorFromRGB(87, 14, 14));
     boxWithBorder1.setBorderColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     boxWithBorder1.setBorderSize(5);
 
-    textAreaFreq.setPosition(298, 88, 174, 37);
+    textAreaFreq.setPosition(255, 40, 104, 35);
     textAreaFreq.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
     textAreaFreq.setLinespacing(0);
-    textAreaFreq.setWildcard(touchgfx::TypedText(T___SINGLEUSE_8CQK).getText());
+    Unicode::snprintf(textAreaFreqBuffer, TEXTAREAFREQ_SIZE, "%s", touchgfx::TypedText(T___SINGLEUSE_8CQK).getText());
+    textAreaFreq.setWildcard(textAreaFreqBuffer);
     textAreaFreq.setTypedText(touchgfx::TypedText(T_FREQ));
 
-    textAreaMI.setPosition(298, 148, 174, 37);
+    textAreaMI.setPosition(380, 46, 84, 31);
     textAreaMI.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
     textAreaMI.setLinespacing(0);
-    textAreaMI.setWildcard(touchgfx::TypedText(T___SINGLEUSE_LXQE).getText());
+    Unicode::snprintf(textAreaMIBuffer, TEXTAREAMI_SIZE, "%s", touchgfx::TypedText(T___SINGLEUSE_LXQE).getText());
+    textAreaMI.setWildcard(textAreaMIBuffer);
     textAreaMI.setTypedText(touchgfx::TypedText(T_MI));
 
-    textArea2.setXY(328, 201);
+    textArea2.setXY(402, 15);
     textArea2.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
     textArea2.setLinespacing(0);
     textArea2.setTypedText(touchgfx::TypedText(T___SINGLEUSE_IO59));
 
-    textArea2_1.setXY(298, 21);
+    textArea2_1.setXY(255, 15);
     textArea2_1.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
     textArea2_1.setLinespacing(0);
     textArea2_1.setTypedText(touchgfx::TypedText(T___SINGLEUSE_X3GJ));
+
+    buttonDot.setXY(180, 136);
+    buttonDot.setBitmaps(touchgfx::Bitmap(BITMAP_DARK_BUTTONS_ROUND_EDGE_ICON_BUTTON_ID), touchgfx::Bitmap(BITMAP_DARK_BUTTONS_ROUND_EDGE_ICON_BUTTON_PRESSED_ID));
+    buttonDot.setLabelText(touchgfx::TypedText(T___SINGLEUSE_LPWK));
+    buttonDot.setLabelColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
+    buttonDot.setLabelColorPressed(touchgfx::Color::getColorFromRGB(255, 255, 255));
+    buttonDot.setAction(buttonCallback);
+
+    toggleButtonFreq.setXY(259, 98);
+    toggleButtonFreq.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_TOGGLEBARS_TOGGLE_ROUND_SMALL_BUTTON_OFF_ID), touchgfx::Bitmap(BITMAP_BLUE_TOGGLEBARS_TOGGLE_ROUND_SMALL_BUTTON_ON_ID));
+    toggleButtonFreq.setAction(buttonCallback);
+
+    toggleButtonMI.setXY(374, 98);
+    toggleButtonMI.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_TOGGLEBARS_TOGGLE_ROUND_SMALL_BUTTON_OFF_ID), touchgfx::Bitmap(BITMAP_BLUE_TOGGLEBARS_TOGGLE_ROUND_SMALL_BUTTON_ON_ID));
+    toggleButtonMI.setAction(buttonCallback);
+
+    buttonPower.setXY(300, 196);
+    buttonPower.setBitmaps(touchgfx::Bitmap(BITMAP_DARK_BUTTONS_ROUND_EDGE_SMALL_ID), touchgfx::Bitmap(BITMAP_DARK_BUTTONS_ROUND_EDGE_SMALL_PRESSED_ID), touchgfx::Bitmap(BITMAP_BLUE_ICONS_POWER_32_ID), touchgfx::Bitmap(BITMAP_BLUE_ICONS_ADD_NEW_32_ID));
+    buttonPower.setIconXY(71, 16);
+    buttonPower.setAction(buttonCallback);
+
+    scalableImage1.setBitmap(touchgfx::Bitmap(BITMAP_BLUE_DIVIDERS_DIVIDER_EXTRA_SHORT_ID));
+    scalableImage1.setPosition(241, 9, 2, 250);
+    scalableImage1.setScalingAlgorithm(touchgfx::ScalableImage::NEAREST_NEIGHBOR);
 
     add(__background);
     add(box1);
@@ -155,13 +178,17 @@ Screen1ViewBase::Screen1ViewBase() :
     add(button0);
     add(buttonSend);
     add(buttonSwitch);
-    add(image1);
     add(boxWithBorder1_1);
     add(boxWithBorder1);
     add(textAreaFreq);
     add(textAreaMI);
     add(textArea2);
     add(textArea2_1);
+    add(buttonDot);
+    add(toggleButtonFreq);
+    add(toggleButtonMI);
+    add(buttonPower);
+    add(scalableImage1);
 }
 
 void Screen1ViewBase::setupScreen()
@@ -261,5 +288,33 @@ void Screen1ViewBase::buttonCallbackHandler(const touchgfx::AbstractButton& src)
         //When buttonSwitch clicked call virtual function
         //Call buttonSwitchClicked
         buttonSwitchClicked();
+    }
+    else if (&src == &buttonDot)
+    {
+        //buttonDotClicked
+        //When buttonDot clicked call virtual function
+        //Call buttonDotClicked
+        buttonDotClicked();
+    }
+    else if (&src == &toggleButtonFreq)
+    {
+        //buttonFreqToggled
+        //When toggleButtonFreq clicked call virtual function
+        //Call buttonFreqToggled
+        buttonFreqToggled();
+    }
+    else if (&src == &toggleButtonMI)
+    {
+        //buttonMIToggled
+        //When toggleButtonMI clicked call virtual function
+        //Call buttonMIToggled
+        buttonMIToggled();
+    }
+    else if (&src == &buttonPower)
+    {
+        //buttonPowerClicked
+        //When buttonPower clicked call virtual function
+        //Call buttonPowerClicked
+        buttonPowerClicked();
     }
 }
