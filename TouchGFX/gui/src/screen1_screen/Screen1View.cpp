@@ -115,7 +115,7 @@ void Screen1View::buttonSendClicked()
  	   toggleButtonFreq.forceState(0);
  	   toggleButtonFreq.invalidate();
 
- 	   adjustMIAndFreq(freqScreenBuffer, miScreenBuffer); // TODO: BU FONK DUZELT
+ 	   adjustMIAndFreq(freqScreenBuffer, miScreenBuffer);
     }
 }
 void Screen1View::buttonClearClicked()
@@ -150,7 +150,7 @@ void Screen1View::buttonMIToggled()
 {
 	miReady = 1;
 }
-void Screen1View::buttonPowerClicked() //TODO: BURAYI UNUTMA
+void Screen1View::buttonPowerClicked()
 {
 	buttonClearClicked();
 	adjustMIAndFreq(freqScreenBuffer, 0.0);

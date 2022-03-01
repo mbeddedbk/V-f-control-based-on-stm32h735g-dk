@@ -112,6 +112,7 @@ extern void TouchGFX_Task(void *argument);
 /* USER CODE BEGIN PFP */
 
 void adjustMIAndFreq(uint32_t, float);
+void motorStart(void);
 
 /* USER CODE END PFP */
 
@@ -171,6 +172,8 @@ int main(void)
   MX_TIM14_Init();
   MX_TouchGFX_Init();
   /* USER CODE BEGIN 2 */
+
+  motorStart();
 
   /* USER CODE END 2 */
 
@@ -639,8 +642,6 @@ static void MX_TIM1_Init(void)
   }
   /* USER CODE BEGIN TIM1_Init 2 */
 
-  HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_4);
-
   /* USER CODE END TIM1_Init 2 */
   HAL_TIM_MspPostInit(&htim1);
 
@@ -689,8 +690,6 @@ static void MX_TIM4_Init(void)
     Error_Handler();
   }
   /* USER CODE BEGIN TIM4_Init 2 */
-
-  HAL_TIM_PWM_Start(&htim4, TIM_CHANNEL_4);
 
   /* USER CODE END TIM4_Init 2 */
   HAL_TIM_MspPostInit(&htim4);
@@ -741,8 +740,6 @@ static void MX_TIM5_Init(void)
   }
   /* USER CODE BEGIN TIM5_Init 2 */
 
-  HAL_TIM_PWM_Start(&htim5, TIM_CHANNEL_1);
-
   /* USER CODE END TIM5_Init 2 */
   HAL_TIM_MspPostInit(&htim5);
 
@@ -774,8 +771,6 @@ static void MX_TIM14_Init(void)
     Error_Handler();
   }
   /* USER CODE BEGIN TIM14_Init 2 */
-
-  HAL_TIM_Base_Start_IT(&htim14);
 
   /* USER CODE END TIM14_Init 2 */
 
@@ -840,8 +835,15 @@ void adjustMIAndFreq(uint32_t foo_freq, float foo_MI)
 	frq = foo_freq;
 	upperLimit = (5000/foo_freq);
 	counter = 0;
-	//float time = 0.0002f;
 
+}
+
+void motorStart(void)
+{
+	  HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_4);
+	  HAL_TIM_PWM_Start(&htim4, TIM_CHANNEL_4);
+	  HAL_TIM_PWM_Start(&htim5, TIM_CHANNEL_1);
+	  HAL_TIM_Base_Start_IT(&htim14);
 }
 
 /* USER CODE END 4 */
@@ -950,7 +952,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 
 		if(modulationIndex != 0)
 		{
-			__HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_4, dutyA * (normalize)); // TODO: MODULATION INDEX 0 OLUNCA DC 50 OLUYOR DIKKAT!!S
+			__HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_4, dutyA * (normalize));
 			__HAL_TIM_SET_COMPARE(&htim4, TIM_CHANNEL_4, dutyB * (normalize));
 			__HAL_TIM_SET_COMPARE(&htim5, TIM_CHANNEL_1, dutyC * (normalize));
 
@@ -958,11 +960,11 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 
 		}else if(modulationIndex == 0)
 		{
-		__HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_4, 0); // TODO: MODULATION INDEX 0 OLUNCA DC 50 OLUYOR DIKKAT!!S
-		__HAL_TIM_SET_COMPARE(&htim4, TIM_CHANNEL_4, 0);
-		__HAL_TIM_SET_COMPARE(&htim5, TIM_CHANNEL_1, 0);
+			__HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_4, 0);
+			__HAL_TIM_SET_COMPARE(&htim4, TIM_CHANNEL_4, 0);
+			__HAL_TIM_SET_COMPARE(&htim5, TIM_CHANNEL_1, 0);
 
-		counter = 0;
+			counter = 0;
 
 		}
 
