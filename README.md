@@ -4,4 +4,4 @@ Remainders:
 - This code is only compatible with STM32H735G-DK
 - Wildcard buffers are not enabled
 
-![TGFX](https://user-images.githubusercontent.com/78253199/154833377-de14c51b-4c81-448b-9f4f-59aac16685bf.png)
+![TGFX](https://user-images.githubusercontent.com/78253199/156184227-4c48b8dd-519a-4c7b-a175-8feefd0feeee.png)
