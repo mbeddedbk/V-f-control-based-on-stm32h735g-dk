@@ -1,0 +1,16 @@
+stm32h7xx_hal_msp.c:66:6:HAL_MspInit	8	static
+stm32h7xx_hal_msp.c:89:6:HAL_CRC_MspInit	8	static
+stm32h7xx_hal_msp.c:111:6:HAL_CRC_MspDeInit	0	static
+stm32h7xx_hal_msp.c:133:6:HAL_DMA2D_MspInit	16	static
+stm32h7xx_hal_msp.c:158:6:HAL_DMA2D_MspDeInit	0	static
+stm32h7xx_hal_msp.c:183:6:HAL_LTDC_MspInit	256	static
+stm32h7xx_hal_msp.c:329:6:HAL_LTDC_MspDeInit	8	static
+stm32h7xx_hal_msp.c:402:6:HAL_OSPI_MspInit	96	static
+stm32h7xx_hal_msp.c:550:6:HAL_OSPI_MspDeInit	8	static
+stm32h7xx_hal_msp.c:636:6:HAL_TIM_PWM_MspInit	16	static
+stm32h7xx_hal_msp.c:680:6:HAL_TIM_Base_MspInit	16	static
+stm32h7xx_hal_msp.c:705:6:HAL_TIM_Encoder_MspInit	40	static
+stm32h7xx_hal_msp.c:738:6:HAL_TIM_MspPostInit	40	static
+stm32h7xx_hal_msp.c:811:6:HAL_TIM_PWM_MspDeInit	0	static
+stm32h7xx_hal_msp.c:855:6:HAL_TIM_Base_MspDeInit	0	static
+stm32h7xx_hal_msp.c:880:6:HAL_TIM_Encoder_MspDeInit	8	static

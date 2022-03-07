@@ -1,0 +1,26 @@
+Screen.hpp:104:18:virtual void touchgfx::Screen::afterTransition()	0	static
+Screen.hpp:144:18:virtual void touchgfx::Screen::handleTickEvent()	0	static
+Screen.hpp:154:18:virtual void touchgfx::Screen::handleKeyEvent(uint8_t)	0	static
+Screen1View.hpp:11:13:Screen1View::~Screen1View()	0	static
+Screen1View.cpp:25:6:virtual void Screen1View::tearDownScreen()	0	static
+Screen1View.cpp:99:6:virtual void Screen1View::buttonSwitchClicked()	0	static
+Screen1View.cpp:141:6:virtual void Screen1View::buttonDotClicked()	0	static
+Screen1View.cpp:145:6:virtual void Screen1View::buttonFreqToggled()	0	static
+Screen1View.cpp:149:6:virtual void Screen1View::buttonMIToggled()	0	static
+Screen1View.cpp:20:6:virtual void Screen1View::setupScreen()	0	static
+Screen1View.cpp:153:6:virtual void Screen1View::buttonPowerClicked()	8	static
+Screen1View.hpp:11:13:virtual Screen1View::~Screen1View()	8	static
+Screen1View.cpp:104:6:virtual void Screen1View::buttonSendClicked()	24	static
+Screen1View.cpp:121:6:virtual void Screen1View::buttonClearClicked()	40	static
+Screen1View.cpp:15:1:Screen1View::Screen1View()	8	static
+Screen1View.cpp:30:6:void Screen1View::fillBuffer(uint8_t)	16	static
+Screen1View.cpp:59:6:virtual void Screen1View::button9Clicked()	0	static
+Screen1View.cpp:63:6:virtual void Screen1View::button8Clicked()	0	static
+Screen1View.cpp:67:6:virtual void Screen1View::button0Clicked()	0	static
+Screen1View.cpp:71:6:virtual void Screen1View::button3Clicked()	0	static
+Screen1View.cpp:75:6:virtual void Screen1View::button2Clicked()	0	static
+Screen1View.cpp:79:6:virtual void Screen1View::button1Clicked()	0	static
+Screen1View.cpp:83:6:virtual void Screen1View::button6Clicked()	0	static
+Screen1View.cpp:87:6:virtual void Screen1View::button5Clicked()	0	static
+Screen1View.cpp:91:6:virtual void Screen1View::button4Clicked()	0	static
+Screen1View.cpp:95:6:virtual void Screen1View::button7Clicked()	0	static
