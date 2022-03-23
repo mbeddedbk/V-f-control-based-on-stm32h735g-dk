@@ -38,7 +38,7 @@
 static PI_DATA_t angularFreqPI =
 {
 .kp = 1.25f,
-.ki = 0.05f,
+.ki = 0.045f,
 .nlmt = -300.f,
 .plmt = 300.f,
 .sum = 0};
