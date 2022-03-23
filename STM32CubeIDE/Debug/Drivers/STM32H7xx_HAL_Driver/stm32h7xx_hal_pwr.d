@@ -1,5 +1,5 @@
 Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_pwr.o: \
- C:/TouchGFXProjects/STM32H7_ThreePhDriver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr.c \
+ C:/TouchGFXProjects/STM32H7_ThreePh_VFController/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr.c \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h \
  ../../Core/Inc/stm32h7xx_hal_conf.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rcc.h \

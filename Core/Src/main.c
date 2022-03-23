@@ -21,16 +21,27 @@
 #include "main.h"
 #include "cmsis_os.h"
 #include "app_touchgfx.h"
+#include "pi_cntrllr.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "stm32h735g_discovery_ospi.h"
 #include "stm32h7xx_hal_ospi.h"
 #include "math.h"
+#include "FreeRTOS.h"
+#include "queue.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
+
+static PI_DATA_t angularFreqPI =
+{
+.kp = 1.25f,
+.ki = 0.05f,
+.nlmt = -300.f,
+.plmt = 300.f,
+.sum = 0};
 
 /* USER CODE END PTD */
 
@@ -41,6 +52,9 @@
 #define TWO_PI (PI*2)
 #define TWO_PI_DIV_BY_THREE (TWO_PI / 3.0f)
 #define FOUR_PI_DIV_BY_THREE (TWO_PI_DIV_BY_THREE * 2.0f)
+
+#define DIVIDE_BY_TWO_PI(x) (x / TWO_PI)
+#define MULTIPLY_BY_TWO_PI(x) (x * TWO_PI)
 
 /* USER CODE END PD */
 
@@ -85,6 +99,7 @@ const osThreadAttr_t TouchGFXTask_attributes = {
 uint32_t counter = 0;
 uint32_t upperLimit = 100;
 uint32_t frq = 50;
+float angularFrq = 50 * TWO_PI;
 uint32_t normalize = 28800;
 
 float time = 0.0002f;
@@ -93,12 +108,22 @@ float modulationIndex = 0.8f;
 uint32_t counterEnc = 0;
 int32_t signedCounterEnc = 0;
 int32_t position = 0;
-int speed = 0;
 int rpm = 0;
+float rpm_ref = 0;
+int speed = 0;
 int32_t oldpos = 0;
 int indx = 0;
 float frequencyEnc = 0.0;
+float angularFrqEnc = 0;
 
+uint8_t piUsed = 0;
+float PI_angularFrq = 0;
+
+int arrNumbers[5] = {0};
+int pos = 0;
+int newAvgRpm = 0;
+long sum = 0;
+int len = sizeof(arrNumbers) / sizeof(int);
 
 /* USER CODE END PV */
 
@@ -122,8 +147,20 @@ extern void TouchGFX_Task(void *argument);
 
 /* USER CODE BEGIN PFP */
 
+void adjustRPM(uint32_t);
+void togglePiFlag(uint8_t piFlag)
+{
+	piUsed = piFlag;
+}
 void adjustMIAndFreq(uint32_t, float);
 void motorStart(void);
+float pi_control(PI_DATA_t* arg, float error);
+float sat(float x, float max, float min);
+void limitAngFrq(void);
+void setModulationIndex(void);
+void adjustMIAndFreqforPI(float foo_freq, float foo_MI);
+int movingAvg(int *ptrArrNumbers, long *ptrSum, int pos, int len, int nextNum);
+
 
 /* USER CODE END PFP */
 
@@ -890,6 +927,60 @@ static void MX_GPIO_Init(void)
 
 /* USER CODE BEGIN 4 */
 
+int movingAvg(int *ptrArrNumbers, long *ptrSum, int pos, int len, int nextNum)
+{
+  //Subtract the oldest number from the prev sum, add the new number
+  *ptrSum = *ptrSum - ptrArrNumbers[pos] + nextNum;
+  //Assign the nextNum to the position in the array
+  ptrArrNumbers[pos] = nextNum;
+  //return the average
+  return *ptrSum / len;
+}
+
+void setModulationIndex(void)
+{
+	if(DIVIDE_BY_TWO_PI(PI_angularFrq) < 1.5)
+	{
+		modulationIndex = 0.03;
+
+	}else if(DIVIDE_BY_TWO_PI(PI_angularFrq) >= 1.5)
+	{
+		modulationIndex = DIVIDE_BY_TWO_PI(PI_angularFrq) / 50.0f;
+	}
+}
+
+void limitAngFrq(void)
+{
+	if(PI_angularFrq > MULTIPLY_BY_TWO_PI(50)) PI_angularFrq = 314.159265f;
+	if(PI_angularFrq < 0) PI_angularFrq = 0;
+}
+
+void adjustRPM(uint32_t fooRPM)
+{
+	angularFrq = MULTIPLY_BY_TWO_PI(fooRPM) / 60.0f;
+}
+
+float pi_control(PI_DATA_t* arg, float error)
+{
+
+	arg->sum = sat(arg->sum + arg->ki * error,arg->plmt, arg->nlmt);
+
+	return  sat(arg->sum + error * arg->kp,arg->plmt, arg->nlmt);
+
+}
+float sat(float x, float max, float min){
+	if(x > max)
+	{
+		x = max;
+	}
+	if(x < min)
+	{
+		x = min;
+	}
+
+	return x;
+}
+
 void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)
 {
 	if(htim->Instance == TIM23)
@@ -906,9 +997,18 @@ void adjustMIAndFreq(uint32_t foo_freq, float foo_MI)
 {
 	modulationIndex = foo_MI;
 	frq = foo_freq;
+	angularFrq = foo_freq * TWO_PI; // buranin initial deger olarak kalmasi lazim
+	upperLimit = (5000/foo_freq);
+	counter = 0; // if piUsed == 0 ise counter i sifirla gibi olabilir.
+
+}
+
+void adjustMIAndFreqforPI(float foo_freq, float foo_MI)
+{
+	modulationIndex = foo_MI;
+	frq = foo_freq;
 	upperLimit = (5000/foo_freq);
 	counter = 0;
-
 }
 
 void motorStart(void)
@@ -929,6 +1029,8 @@ void motorStart(void)
   * @retval None
   */
 /* USER CODE END Header_StartDefaultTask */
+
+
 void StartDefaultTask(void *argument)
 {
   /* USER CODE BEGIN 5 */
@@ -939,6 +1041,7 @@ void StartDefaultTask(void *argument)
   }
   /* USER CODE END 5 */
 }
+
 
 /* MPU Configuration */
 
@@ -1013,7 +1116,7 @@ void MPU_Config(void)
   * @param  htim : TIM handle
   * @retval None
   */
-void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) // 5 kHz in every 0.0002 s
 {
   /* USER CODE BEGIN Callback 0 */
 
@@ -1048,11 +1151,33 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 		}
 
 		indx++;
-		if(indx == 5000)
+		if(indx== 500)
 		{
-			speed = (position - oldpos); // speed in clicks/sec
-			frequencyEnc = speed / 1000.0;
+			rpm_ref = angularFrq*60/TWO_PI;
+/*
+			speed = (position - oldpos) * 10; // speed in clicks/sec
+			frequencyEnc = speed / 1000.0f;
+			angularFrqEnc = frequencyEnc * TWO_PI;
 			rpm = (speed * 60)/1000;
+*/
+			speed = (position - oldpos) * 10; // speed in clicks/sec
+			float fl_rpm = (0.0707304 * speed) - 8.75;//(0.994 * ((0.0707304 * speed) - 8.75)) - 6.1246;//(1.0059 * ((0.0707304 * speed) - 8.75)) + 6.2507;//(1.04 * ((1.1335*((speed * 60))/1000.0) + 15.8)) -25.182; //1.1335*((speed * 60)/1000.0) + 15.8;
+			rpm = (int)fl_rpm;
+			angularFrqEnc = (fl_rpm / 60.0f) * TWO_PI;
+
+			newAvgRpm = movingAvg(arrNumbers, &sum, pos, len, rpm);
+		    pos++;
+		    if (pos >= len){
+		      pos = 0;
+		    }
+
+			if(piUsed == 1)
+			{
+				PI_angularFrq = angularFrqEnc + pi_control(&angularFreqPI, angularFrq - angularFrqEnc); // burada baska bir degere atamaliyim yanlis olmus
+				limitAngFrq();
+				setModulationIndex();
+				adjustMIAndFreqforPI(DIVIDE_BY_TWO_PI(PI_angularFrq), modulationIndex); // Yeni bir fonk lazim
+			}
 			oldpos = position;
 			indx = 0;
 		}

@@ -155,4 +155,8 @@ void Screen1View::buttonPowerClicked()
 	buttonClearClicked();
 	adjustMIAndFreq(freqScreenBuffer, 0.0);
 }
+void Screen1View::button2ManualClicked()
+{
+	//togglePiFlag(1);
+}
 

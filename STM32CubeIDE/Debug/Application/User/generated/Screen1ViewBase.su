@@ -36,7 +36,8 @@ Screen1ViewBase.hpp:94:18:virtual void Screen1ViewBase::buttonDotClicked()	0	sta
 Screen1ViewBase.hpp:99:18:virtual void Screen1ViewBase::buttonFreqToggled()	0	static
 Screen1ViewBase.hpp:104:18:virtual void Screen1ViewBase::buttonMIToggled()	0	static
 Screen1ViewBase.hpp:109:18:virtual void Screen1ViewBase::buttonPowerClicked()	0	static
-Screen1ViewBase.cpp:194:6:virtual void Screen1ViewBase::setupScreen()	0	static
+Screen1ViewBase.hpp:114:18:virtual void Screen1ViewBase::button2DirectClicked()	0	static
+Screen1ViewBase.cpp:200:6:virtual void Screen1ViewBase::setupScreen()	0	static
 Callback.hpp:357:8:touchgfx::Callback<Screen1ViewBase, const touchgfx::AbstractButton&>::~Callback()	0	static
 Callback.hpp:386:18:void touchgfx::Callback<dest_type, T1, void, void>::execute(T1) [with dest_type = Screen1ViewBase; T1 = const touchgfx::AbstractButton&]	8	static
 Callback.hpp:396:18:bool touchgfx::Callback<dest_type, T1, void, void>::isValid() const [with dest_type = Screen1ViewBase; T1 = const touchgfx::AbstractButton&]	0	static
@@ -44,7 +45,7 @@ TypedText.hpp:65:13:virtual touchgfx::TypedText::~TypedText()	8	static
 Callback.hpp:357:8:virtual touchgfx::Callback<Screen1ViewBase, const touchgfx::AbstractButton&>::~Callback()	8	static
 View.hpp:36:7:virtual touchgfx::View<Screen1Presenter>::~View()	8	static
 Screen1ViewBase.hpp:23:13:virtual Screen1ViewBase::~Screen1ViewBase()	8	static
-Screen1ViewBase.cpp:199:6:void Screen1ViewBase::buttonCallbackHandler(const touchgfx::AbstractButton&)	0	static
+Screen1ViewBase.cpp:205:6:void Screen1ViewBase::buttonCallbackHandler(const touchgfx::AbstractButton&)	8	static
 Drawable.hpp:48:5:touchgfx::Drawable::Drawable()	0	static
 Drawable.hpp:326:10:void touchgfx::Drawable::setXY(int16_t, int16_t)	16	static
 Drawable.hpp:216:10:void touchgfx::Drawable::setPosition(int16_t, int16_t, int16_t, int16_t)	16	static
@@ -52,4 +53,4 @@ Box.hpp:33:5:touchgfx::Box::Box()	8	static
 ButtonWithLabel.hpp:132:10:void touchgfx::ButtonWithLabel::updateTextPosition()	24	static
 TextArea.hpp:42:5:touchgfx::TextArea::TextArea()	8	static
 ToggleButton.hpp:32:7:touchgfx::ToggleButton::ToggleButton()	8	static
-Screen1ViewBase.cpp:9:1:Screen1ViewBase::Screen1ViewBase()	176	static
+Screen1ViewBase.cpp:9:1:Screen1ViewBase::Screen1ViewBase()	184	static

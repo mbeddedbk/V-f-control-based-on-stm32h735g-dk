@@ -1,6 +1,7 @@
 Screen.hpp:104:18:virtual void touchgfx::Screen::afterTransition()	0	static
 Screen.hpp:144:18:virtual void touchgfx::Screen::handleTickEvent()	0	static
 Screen.hpp:154:18:virtual void touchgfx::Screen::handleKeyEvent(uint8_t)	0	static
+Screen1ViewBase.hpp:114:18:virtual void Screen1ViewBase::button2DirectClicked()	0	static
 Screen1View.hpp:11:13:Screen1View::~Screen1View()	0	static
 Screen1View.cpp:25:6:virtual void Screen1View::tearDownScreen()	0	static
 Screen1View.cpp:99:6:virtual void Screen1View::buttonSwitchClicked()	0	static

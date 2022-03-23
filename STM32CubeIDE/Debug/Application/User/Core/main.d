@@ -1,5 +1,5 @@
 Application/User/Core/main.o: \
- C:/TouchGFXProjects/STM32H7_ThreePhDriver/Core/Src/main.c \
+ C:/TouchGFXProjects/STM32H7_ThreePh_VFController/Core/Src/main.c \
  ../../Core/Inc/main.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h \
  ../../Core/Inc/stm32h7xx_hal_conf.h \
@@ -48,14 +48,16 @@ Application/User/Core/main.o: \
  ../../Middlewares/Third_Party/FreeRTOS/Source/include/task.h \
  ../../Middlewares/Third_Party/FreeRTOS/Source/include/list.h \
  ../../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h \
- ../../TouchGFX/App/app_touchgfx.h \
+ ../../TouchGFX/App/app_touchgfx.h ../../Core/Inc/pi_cntrllr.h \
  ../../Drivers/BSP/STM32H735G-DK/stm32h735g_discovery_ospi.h \
  ../../Core/Inc/stm32h735g_discovery_conf.h \
  ../../Drivers/BSP/STM32H735G-DK/stm32h735g_discovery_errno.h \
  ../../Drivers/BSP/STM32H735G-DK/../Components/mx25lm51245g/mx25lm51245g.h \
  ../../Core/Inc/mx25lm51245g_conf.h \
  ../../Drivers/BSP/STM32H735G-DK/../Components/s70kl1281/s70kl1281.h \
- ../../Core/Inc/s70kl1281_conf.h
+ ../../Core/Inc/s70kl1281_conf.h \
+ ../../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h \
+ ../../Middlewares/Third_Party/FreeRTOS/Source/include/task.h
 
 ../../Core/Inc/main.h:
 
@@ -155,6 +157,8 @@ Application/User/Core/main.o: \
 
 ../../TouchGFX/App/app_touchgfx.h:
 
+../../Core/Inc/pi_cntrllr.h:
+
 ../../Drivers/BSP/STM32H735G-DK/stm32h735g_discovery_ospi.h:
 
 ../../Core/Inc/stm32h735g_discovery_conf.h:
@@ -168,3 +172,7 @@ Application/User/Core/main.o: \
 ../../Drivers/BSP/STM32H735G-DK/../Components/s70kl1281/s70kl1281.h:
 
 ../../Core/Inc/s70kl1281_conf.h:
+
+../../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h:
+
+../../Middlewares/Third_Party/FreeRTOS/Source/include/task.h:

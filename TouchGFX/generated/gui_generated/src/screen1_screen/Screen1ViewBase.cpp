@@ -154,7 +154,7 @@ Screen1ViewBase::Screen1ViewBase() :
     toggleButtonMI.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_TOGGLEBARS_TOGGLE_ROUND_SMALL_BUTTON_OFF_ID), touchgfx::Bitmap(BITMAP_BLUE_TOGGLEBARS_TOGGLE_ROUND_SMALL_BUTTON_ON_ID));
     toggleButtonMI.setAction(buttonCallback);
 
-    buttonPower.setXY(300, 196);
+    buttonPower.setXY(244, 202);
     buttonPower.setBitmaps(touchgfx::Bitmap(BITMAP_DARK_BUTTONS_ROUND_EDGE_SMALL_ID), touchgfx::Bitmap(BITMAP_DARK_BUTTONS_ROUND_EDGE_SMALL_PRESSED_ID), touchgfx::Bitmap(BITMAP_BLUE_ICONS_POWER_32_ID), touchgfx::Bitmap(BITMAP_BLUE_ICONS_ADD_NEW_32_ID));
     buttonPower.setIconXY(71, 16);
     buttonPower.setAction(buttonCallback);
@@ -162,6 +162,11 @@ Screen1ViewBase::Screen1ViewBase() :
     scalableImage1.setBitmap(touchgfx::Bitmap(BITMAP_BLUE_DIVIDERS_DIVIDER_EXTRA_SHORT_ID));
     scalableImage1.setPosition(241, 9, 2, 250);
     scalableImage1.setScalingAlgorithm(touchgfx::ScalableImage::NEAREST_NEIGHBOR);
+
+    button2Direct.setXY(416, 202);
+    button2Direct.setBitmaps(touchgfx::Bitmap(BITMAP_DARK_BUTTONS_ROUND_EDGE_ICON_BUTTON_ID), touchgfx::Bitmap(BITMAP_DARK_BUTTONS_ROUND_EDGE_ICON_BUTTON_PRESSED_ID), touchgfx::Bitmap(BITMAP_BLUE_ICONS_NEXT_ARROW_32_ID), touchgfx::Bitmap(BITMAP_BLUE_ICONS_NEXT_ARROW_32_ID));
+    button2Direct.setIconXY(22, 15);
+    button2Direct.setAction(buttonCallback);
 
     add(__background);
     add(box1);
@@ -189,6 +194,7 @@ Screen1ViewBase::Screen1ViewBase() :
     add(toggleButtonMI);
     add(buttonPower);
     add(scalableImage1);
+    add(button2Direct);
 }
 
 void Screen1ViewBase::setupScreen()
@@ -316,5 +322,17 @@ void Screen1ViewBase::buttonCallbackHandler(const touchgfx::AbstractButton& src)
         //When buttonPower clicked call virtual function
         //Call buttonPowerClicked
         buttonPowerClicked();
+    }
+    else if (&src == &button2Direct)
+    {
+        //Interaction15
+        //When button2Direct clicked change screen to Screen2
+        //Go to Screen2 with no screen transition
+        application().gotoScreen2ScreenNoTransition();
+
+        //button2DirectClicked
+        //When button2Direct clicked call virtual function
+        //Call button2DirectClicked
+        button2DirectClicked();
     }
 }

@@ -1,6 +1,6 @@
 Drivers/BSP/STM32H735G-DK/stm32h735g_discovery_ts.o: \
- C:/TouchGFXProjects/STM32H7_ThreePhDriver/Drivers/BSP/STM32H735G-DK/stm32h735g_discovery_ts.c \
- C:/TouchGFXProjects/STM32H7_ThreePhDriver/Drivers/BSP/STM32H735G-DK/stm32h735g_discovery_ts.h \
+ C:/TouchGFXProjects/STM32H7_ThreePh_VFController/Drivers/BSP/STM32H735G-DK/stm32h735g_discovery_ts.c \
+ C:/TouchGFXProjects/STM32H7_ThreePh_VFController/Drivers/BSP/STM32H735G-DK/stm32h735g_discovery_ts.h \
  ../../Core/Inc/stm32h735g_discovery_conf.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h \
  ../../Core/Inc/stm32h7xx_hal_conf.h \
@@ -38,14 +38,14 @@ Drivers/BSP/STM32H735G-DK/stm32h735g_discovery_ts.o: \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_pwr_ex.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_tim.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_tim_ex.h \
- C:/TouchGFXProjects/STM32H7_ThreePhDriver/Drivers/BSP/STM32H735G-DK/stm32h735g_discovery_errno.h \
- c:\touchgfxprojects\stm32h7_threephdriver\drivers\bsp\components\ft5336\ft5336.h \
- c:\touchgfxprojects\stm32h7_threephdriver\drivers\bsp\components\ft5336\ft5336_reg.h \
+ C:/TouchGFXProjects/STM32H7_ThreePh_VFController/Drivers/BSP/STM32H735G-DK/stm32h735g_discovery_errno.h \
+ c:\touchgfxprojects\stm32h7_threeph_vfcontroller\drivers\bsp\components\ft5336\ft5336.h \
+ c:\touchgfxprojects\stm32h7_threeph_vfcontroller\drivers\bsp\components\ft5336\ft5336_reg.h \
  ../../Core/Inc/ft5336_conf.h \
- c:\touchgfxprojects\stm32h7_threephdriver\drivers\bsp\components\common\ts.h \
- C:/TouchGFXProjects/STM32H7_ThreePhDriver/Drivers/BSP/STM32H735G-DK/stm32h735g_discovery_bus.h
+ c:\touchgfxprojects\stm32h7_threeph_vfcontroller\drivers\bsp\components\common\ts.h \
+ C:/TouchGFXProjects/STM32H7_ThreePh_VFController/Drivers/BSP/STM32H735G-DK/stm32h735g_discovery_bus.h
 
-C:/TouchGFXProjects/STM32H7_ThreePhDriver/Drivers/BSP/STM32H735G-DK/stm32h735g_discovery_ts.h:
+C:/TouchGFXProjects/STM32H7_ThreePh_VFController/Drivers/BSP/STM32H735G-DK/stm32h735g_discovery_ts.h:
 
 ../../Core/Inc/stm32h735g_discovery_conf.h:
 
@@ -121,14 +121,14 @@ C:/TouchGFXProjects/STM32H7_ThreePhDriver/Drivers/BSP/STM32H735G-DK/stm32h735g_d
 
 ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_tim_ex.h:
 
-C:/TouchGFXProjects/STM32H7_ThreePhDriver/Drivers/BSP/STM32H735G-DK/stm32h735g_discovery_errno.h:
+C:/TouchGFXProjects/STM32H7_ThreePh_VFController/Drivers/BSP/STM32H735G-DK/stm32h735g_discovery_errno.h:
 
-c:\touchgfxprojects\stm32h7_threephdriver\drivers\bsp\components\ft5336\ft5336.h:
+c:\touchgfxprojects\stm32h7_threeph_vfcontroller\drivers\bsp\components\ft5336\ft5336.h:
 
-c:\touchgfxprojects\stm32h7_threephdriver\drivers\bsp\components\ft5336\ft5336_reg.h:
+c:\touchgfxprojects\stm32h7_threeph_vfcontroller\drivers\bsp\components\ft5336\ft5336_reg.h:
 
 ../../Core/Inc/ft5336_conf.h:
 
-c:\touchgfxprojects\stm32h7_threephdriver\drivers\bsp\components\common\ts.h:
+c:\touchgfxprojects\stm32h7_threeph_vfcontroller\drivers\bsp\components\common\ts.h:
 
-C:/TouchGFXProjects/STM32H7_ThreePhDriver/Drivers/BSP/STM32H735G-DK/stm32h735g_discovery_bus.h:
+C:/TouchGFXProjects/STM32H7_ThreePh_VFController/Drivers/BSP/STM32H735G-DK/stm32h735g_discovery_bus.h:

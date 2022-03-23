@@ -29,6 +29,7 @@ public:
     virtual void buttonFreqToggled();
     virtual void buttonMIToggled();
     virtual void buttonPowerClicked();
+    virtual void button2ManualClicked();
 
     void fillBuffer(uint8_t);
 

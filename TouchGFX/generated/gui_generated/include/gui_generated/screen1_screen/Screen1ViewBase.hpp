@@ -111,6 +111,11 @@ public:
         // Override and implement this function in Screen1
     }
 
+    virtual void button2DirectClicked()
+    {
+        // Override and implement this function in Screen1
+    }
+
 protected:
     FrontendApplication& application() {
         return *static_cast<FrontendApplication*>(touchgfx::Application::getInstance());
@@ -145,6 +150,7 @@ protected:
     touchgfx::ToggleButton toggleButtonMI;
     touchgfx::ButtonWithIcon buttonPower;
     touchgfx::ScalableImage scalableImage1;
+    touchgfx::ButtonWithIcon button2Direct;
 
     /*
      * Wildcard Buffers

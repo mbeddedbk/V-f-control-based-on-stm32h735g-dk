@@ -1,5 +1,5 @@
 Application/User/generated/UnmappedDataFont.o: \
- C:/TouchGFXProjects/STM32H7_ThreePhDriver/TouchGFX/generated/fonts/src/UnmappedDataFont.cpp \
+ C:/TouchGFXProjects/STM32H7_ThreePh_VFController/TouchGFX/generated/fonts/src/UnmappedDataFont.cpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/FlashDataReader.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/Types.hpp \
  ../../Middlewares/ST/touchgfx/framework/include/touchgfx/hal/Config.hpp \

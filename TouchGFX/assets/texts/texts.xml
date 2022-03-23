@@ -58,6 +58,60 @@
     <Text Id="__SingleUse_LPWK" TypographyId="Default" Alignment="Center" Direction="LTR">
       <Translation Language="GB">.</Translation>
     </Text>
+    <Text Id="__SingleUse_KQT6" TypographyId="Default" Alignment="Center" Direction="LTR">
+      <Translation Language="GB">7</Translation>
+    </Text>
+    <Text Id="__SingleUse_AX5S" TypographyId="Default" Alignment="Center" Direction="LTR">
+      <Translation Language="GB">8</Translation>
+    </Text>
+    <Text Id="__SingleUse_UQYH" TypographyId="Default" Alignment="Center" Direction="LTR">
+      <Translation Language="GB">9</Translation>
+    </Text>
+    <Text Id="__SingleUse_8BQ6" TypographyId="Default" Alignment="Center" Direction="LTR">
+      <Translation Language="GB">4</Translation>
+    </Text>
+    <Text Id="__SingleUse_PK43" TypographyId="Default" Alignment="Center" Direction="LTR">
+      <Translation Language="GB">5</Translation>
+    </Text>
+    <Text Id="__SingleUse_BHD1" TypographyId="Default" Alignment="Center" Direction="LTR">
+      <Translation Language="GB">6</Translation>
+    </Text>
+    <Text Id="__SingleUse_A5TL" TypographyId="Default" Alignment="Center" Direction="LTR">
+      <Translation Language="GB">1</Translation>
+    </Text>
+    <Text Id="__SingleUse_DE82" TypographyId="Default" Alignment="Center" Direction="LTR">
+      <Translation Language="GB">2</Translation>
+    </Text>
+    <Text Id="__SingleUse_NURX" TypographyId="Default" Alignment="Center" Direction="LTR">
+      <Translation Language="GB">3</Translation>
+    </Text>
+    <Text Id="__SingleUse_X56X" TypographyId="Default" Alignment="Center" Direction="LTR">
+      <Translation Language="GB">C</Translation>
+    </Text>
+    <Text Id="__SingleUse_UKEC" TypographyId="Default" Alignment="Center" Direction="LTR">
+      <Translation Language="GB">0</Translation>
+    </Text>
+    <Text Id="__SingleUse_BLKG" TypographyId="Default" Alignment="Center" Direction="LTR">
+      <Translation Language="GB">S</Translation>
+    </Text>
+    <Text Id="__SingleUse_30RR" TypographyId="Default" Alignment="Left" Direction="LTR">
+      <Translation Language="GB">50</Translation>
+    </Text>
+    <Text Id="__SingleUse_EP5D" TypographyId="Typography_00" Alignment="Center" Direction="LTR">
+      <Translation Language="GB">S RPM</Translation>
+    </Text>
+    <Text Id="__SingleUse_M26F" TypographyId="Default" Alignment="Left" Direction="LTR">
+      <Translation Language="GB">50</Translation>
+    </Text>
+    <Text Id="__SingleUse_DTOP" TypographyId="Typography_00" Alignment="Center" Direction="LTR">
+      <Translation Language="GB">M RPM</Translation>
+    </Text>
+    <Text Id="SRPM" TypographyId="Default" Alignment="Center" Direction="LTR">
+      <Translation Language="GB">&lt;srpm&gt;</Translation>
+    </Text>
+    <Text Id="MRPM" TypographyId="Default" Alignment="Center" Direction="LTR">
+      <Translation Language="GB">&lt;mrpm&gt;</Translation>
+    </Text>
   </Texts>
   <Typographies>
     <Typography Id="Default" Font="verdana.ttf" Size="30" Bpp="4" FallbackCharacter="?" />
