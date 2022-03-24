@@ -1122,6 +1122,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) // 5 kHz in every 0.
 {
   /* USER CODE BEGIN Callback 0 */
 
+
 	if (htim->Instance == TIM14)
 	{
 		float theta = (frq * TWO_PI * counter) * time;
@@ -1152,6 +1153,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) // 5 kHz in every 0.
 			counter = 0;
 		}
 
+
 		indx++;
 		if(indx == 200)
 		{
@@ -1162,8 +1164,8 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) // 5 kHz in every 0.
 			angularFrqEnc = frequencyEnc * TWO_PI;
 			rpm = (speed * 60)/1000;
 */
-			speed = (position - oldpos) * 25.0; // speed in clicks/sec
-			float fl_rpm = (0.0707304 * speed) - 8.75;//(0.994 * ((0.0707304 * speed) - 8.75)) - 6.1246;//(1.0059 * ((0.0707304 * speed) - 8.75)) + 6.2507;//(1.04 * ((1.1335*((speed * 60))/1000.0) + 15.8)) -25.182; //1.1335*((speed * 60)/1000.0) + 15.8;
+			speed = (position - oldpos) * 25; // speed in clicks/sec
+			float fl_rpm = (1.0063*((0.0707304 * speed) - 8.75)) + 6.985;//(0.994 * ((0.0707304 * speed) - 8.75)) - 6.1246;//(1.0059 * ((0.0707304 * speed) - 8.75)) + 6.2507;//(1.04 * ((1.1335*((speed * 60))/1000.0) + 15.8)) -25.182; //1.1335*((speed * 60)/1000.0) + 15.8;
 			rpm = (int)fl_rpm;
 			angularFrqEnc = (fl_rpm / 60.0f) * TWO_PI;
 
