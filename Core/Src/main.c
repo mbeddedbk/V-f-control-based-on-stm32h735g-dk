@@ -34,11 +34,11 @@
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
-
+float KP=1.25,KI=0.05;
 static PI_DATA_t angularFreqPI =
 {
 .kp = 1.25f,
-.ki = 0.045f,
+.ki = 0.05f,
 .nlmt = -300.f,
 .plmt = 300.f,
 .sum = 0};
@@ -107,11 +107,11 @@ float modulationIndex = 0.8f;
 
 uint32_t counterEnc = 0;
 int32_t signedCounterEnc = 0;
-int32_t position = 0;
+float position = 0;
 int rpm = 0;
 float rpm_ref = 0;
-int speed = 0;
-int32_t oldpos = 0;
+float speed = 0;
+float oldpos = 0;
 int indx = 0;
 float frequencyEnc = 0.0;
 float angularFrqEnc = 0;
@@ -124,6 +124,8 @@ int pos = 0;
 int newAvgRpm = 0;
 long sum = 0;
 int len = sizeof(arrNumbers) / sizeof(int);
+
+float Tsd = 0.1;
 
 /* USER CODE END PV */
 
@@ -963,9 +965,9 @@ void adjustRPM(uint32_t fooRPM)
 float pi_control(PI_DATA_t* arg, float error)
 {
 
-	arg->sum = sat(arg->sum + arg->ki * error,arg->plmt, arg->nlmt);
+	arg->sum = sat(arg->sum + KI * error ,arg->plmt, arg->nlmt);
 
-	return  sat(arg->sum + error * arg->kp,arg->plmt, arg->nlmt);
+	return  sat(arg->sum + error * KP,arg->plmt, arg->nlmt);
 
 }
 float sat(float x, float max, float min){
@@ -987,7 +989,7 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)
 	{
 		counterEnc = __HAL_TIM_GET_COUNTER(htim);
 		signedCounterEnc = (int32_t)counterEnc;
-		position = signedCounterEnc/4;
+		position = signedCounterEnc/4.0;
 
 	}
 
@@ -1151,7 +1153,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) // 5 kHz in every 0.
 		}
 
 		indx++;
-		if(indx== 500)
+		if(indx == 200)
 		{
 			rpm_ref = angularFrq*60/TWO_PI;
 /*
@@ -1160,7 +1162,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) // 5 kHz in every 0.
 			angularFrqEnc = frequencyEnc * TWO_PI;
 			rpm = (speed * 60)/1000;
 */
-			speed = (position - oldpos) * 10; // speed in clicks/sec
+			speed = (position - oldpos) * 25.0; // speed in clicks/sec
 			float fl_rpm = (0.0707304 * speed) - 8.75;//(0.994 * ((0.0707304 * speed) - 8.75)) - 6.1246;//(1.0059 * ((0.0707304 * speed) - 8.75)) + 6.2507;//(1.04 * ((1.1335*((speed * 60))/1000.0) + 15.8)) -25.182; //1.1335*((speed * 60)/1000.0) + 15.8;
 			rpm = (int)fl_rpm;
 			angularFrqEnc = (fl_rpm / 60.0f) * TWO_PI;
@@ -1173,10 +1175,10 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) // 5 kHz in every 0.
 
 			if(piUsed == 1)
 			{
-				PI_angularFrq = angularFrqEnc + pi_control(&angularFreqPI, angularFrq - angularFrqEnc); // burada baska bir degere atamaliyim yanlis olmus
+				PI_angularFrq = angularFrqEnc + pi_control(&angularFreqPI, angularFrq - angularFrqEnc);
 				limitAngFrq();
 				setModulationIndex();
-				adjustMIAndFreqforPI(DIVIDE_BY_TWO_PI(PI_angularFrq), modulationIndex); // Yeni bir fonk lazim
+				adjustMIAndFreqforPI(DIVIDE_BY_TWO_PI(PI_angularFrq), modulationIndex);
 			}
 			oldpos = position;
 			indx = 0;
