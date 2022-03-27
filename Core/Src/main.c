@@ -119,13 +119,13 @@ float angularFrqEnc = 0;
 uint8_t piUsed = 0;
 float PI_angularFrq = 0;
 
-int arrNumbers[5] = {0};
+int arrNumbers[5] = {0}; // Moving average window length
 int pos = 0;
 int newAvgRpm = 0;
 long sum = 0;
 int len = sizeof(arrNumbers) / sizeof(int);
 
-float Tsd = 0.1;
+float Tsd = 0.04;
 
 /* USER CODE END PV */
 
@@ -999,9 +999,9 @@ void adjustMIAndFreq(uint32_t foo_freq, float foo_MI)
 {
 	modulationIndex = foo_MI;
 	frq = foo_freq;
-	angularFrq = foo_freq * TWO_PI; // buranin initial deger olarak kalmasi lazim
+	angularFrq = foo_freq * TWO_PI;
 	upperLimit = (5000/foo_freq);
-	counter = 0; // if piUsed == 0 ise counter i sifirla gibi olabilir.
+	counter = 0;
 
 }
 
@@ -1158,14 +1158,8 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) // 5 kHz in every 0.
 		if(indx == 200)
 		{
 			rpm_ref = angularFrq*60/TWO_PI;
-/*
-			speed = (position - oldpos) * 10; // speed in clicks/sec
-			frequencyEnc = speed / 1000.0f;
-			angularFrqEnc = frequencyEnc * TWO_PI;
-			rpm = (speed * 60)/1000;
-*/
 			speed = (position - oldpos) * 25; // speed in clicks/sec
-			float fl_rpm = (1.0063*((0.0707304 * speed) - 8.75)) + 6.985;//(0.994 * ((0.0707304 * speed) - 8.75)) - 6.1246;//(1.0059 * ((0.0707304 * speed) - 8.75)) + 6.2507;//(1.04 * ((1.1335*((speed * 60))/1000.0) + 15.8)) -25.182; //1.1335*((speed * 60)/1000.0) + 15.8;
+			float fl_rpm = (1.0063*((0.0707304 * speed) - 8.75)) + 16.985;//(0.994 * ((0.0707304 * speed) - 8.75)) - 6.1246;//(1.0059 * ((0.0707304 * speed) - 8.75)) + 6.2507;//(1.04 * ((1.1335*((speed * 60))/1000.0) + 15.8)) -25.182; //1.1335*((speed * 60)/1000.0) + 15.8;
 			rpm = (int)fl_rpm;
 			angularFrqEnc = (fl_rpm / 60.0f) * TWO_PI;
 
@@ -1180,7 +1174,8 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) // 5 kHz in every 0.
 				PI_angularFrq = angularFrqEnc + pi_control(&angularFreqPI, angularFrq - angularFrqEnc);
 				limitAngFrq();
 				setModulationIndex();
-				adjustMIAndFreqforPI(DIVIDE_BY_TWO_PI(PI_angularFrq), modulationIndex);
+				if(angularFrq != 0) adjustMIAndFreqforPI(DIVIDE_BY_TWO_PI(PI_angularFrq), modulationIndex);
+				else if (angularFrq == 0) adjustMIAndFreqforPI(DIVIDE_BY_TWO_PI(PI_angularFrq), 0);
 			}
 			oldpos = position;
 			indx = 0;
