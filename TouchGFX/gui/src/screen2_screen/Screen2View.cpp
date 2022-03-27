@@ -98,8 +98,11 @@ void Screen2View::handleTickEvent()
 	count++;
 	if (count>10){
 
+		int temp = 0;
 		count = 0;
-		Unicode::snprintf(textAreaMRPMBuffer, TEXTAREAMRPM_SIZE, "%d", newAvgRpm);
+		(newAvgRpm < 0) ? (temp = 0) : (temp = newAvgRpm);
+
+		Unicode::snprintf(textAreaMRPMBuffer, TEXTAREAMRPM_SIZE, "%d", temp);
 		textAreaMRPM.invalidate();
 	}
 }

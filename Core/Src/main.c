@@ -125,7 +125,7 @@ int newAvgRpm = 0;
 long sum = 0;
 int len = sizeof(arrNumbers) / sizeof(int);
 
-float Tsd = 0.04;
+float offset = -8.985;//16.985;
 
 /* USER CODE END PV */
 
@@ -1159,8 +1159,18 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) // 5 kHz in every 0.
 		{
 			rpm_ref = angularFrq*60/TWO_PI;
 			speed = (position - oldpos) * 25; // speed in clicks/sec
-			float fl_rpm = (1.0063*((0.0707304 * speed) - 8.75)) + 16.985;//(0.994 * ((0.0707304 * speed) - 8.75)) - 6.1246;//(1.0059 * ((0.0707304 * speed) - 8.75)) + 6.2507;//(1.04 * ((1.1335*((speed * 60))/1000.0) + 15.8)) -25.182; //1.1335*((speed * 60)/1000.0) + 15.8;
-			rpm = (int)fl_rpm;
+
+			float fl_rpm;
+			if(rpm_ref <= 400)
+				fl_rpm = (1.0063*((0.0707304 * speed) - 8.75)) + offset;//(0.994 * ((0.0707304 * speed) - 8.75)) - 6.1246;//(1.0059 * ((0.0707304 * speed) - 8.75)) + 6.2507;//(1.04 * ((1.1335*((speed * 60))/1000.0) + 15.8)) -25.182; //1.1335*((speed * 60)/1000.0) + 15.8;
+			else if(rpm_ref > 400 && rpm_ref <= 700)
+				fl_rpm = (1.0063*((0.0707304 * speed) - 8.75)) + (offset - 20);
+			else if(rpm_ref > 700 && rpm_ref < 900)
+				fl_rpm = (1.0063*((0.0707304 * speed) - 8.75)) + (offset - 30);
+			else
+				fl_rpm = (1.0063*((0.0707304 * speed) - 8.75)) + (offset - 40);
+
+			(rpm < 0) ? (rpm = 0) : (rpm = (int)fl_rpm);
 			angularFrqEnc = (fl_rpm / 60.0f) * TWO_PI;
 
 			newAvgRpm = movingAvg(arrNumbers, &sum, pos, len, rpm);
