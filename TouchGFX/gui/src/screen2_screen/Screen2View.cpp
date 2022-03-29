@@ -78,7 +78,7 @@ void Screen2View::buttonClear_p2Clicked()
 
 void Screen2View::buttonSend_p2Clicked()
 {
-	togglePiFlag(1);
+	piUsed = 1;
 	//((rpmScreenBuffer - 50) < 0) ? (rpmScreenBuffer = rpmScreenBuffer) : (rpmScreenBuffer-=50);
 	adjustRPM(rpmScreenBuffer);
 
@@ -88,10 +88,11 @@ void Screen2View::buttonPower_p2Clicked()
 	buttonClear_p2Clicked();
 	adjustRPM(0);
 	adjustMIAndFreq(0, 0.0);
+	piUsed = 0;
 }
 void Screen2View::button2DirectClicked()
 {
-	togglePiFlag(0);
+	piUsed = 0;
 }
 void Screen2View::handleTickEvent()
 {

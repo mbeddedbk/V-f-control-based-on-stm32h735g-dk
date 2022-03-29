@@ -61,6 +61,7 @@ void adjustRPM(uint32_t);
 void togglePiFlag(uint8_t);
 
 extern int newAvgRpm;
+extern uint8_t piUsed;
 
 /* USER CODE END EFP */
 

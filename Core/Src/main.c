@@ -34,7 +34,7 @@
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
-float KP=1.25,KI=0.05;
+float KP=1.25,KI=0.05, NLMT = -300.0, PLMT = 300;
 static PI_DATA_t angularFreqPI =
 {
 .kp = 1.25f,
@@ -150,10 +150,10 @@ extern void TouchGFX_Task(void *argument);
 /* USER CODE BEGIN PFP */
 
 void adjustRPM(uint32_t);
-void togglePiFlag(uint8_t piFlag)
+/*void togglePiFlag(uint8_t piFlag)
 {
 	piUsed = piFlag;
-}
+}*/
 void adjustMIAndFreq(uint32_t, float);
 void motorStart(void);
 float pi_control(PI_DATA_t* arg, float error);
@@ -965,9 +965,9 @@ void adjustRPM(uint32_t fooRPM)
 float pi_control(PI_DATA_t* arg, float error)
 {
 
-	arg->sum = sat(arg->sum + KI * error ,arg->plmt, arg->nlmt);
+	arg->sum = sat(arg->sum + KI * error ,PLMT, NLMT);//arg->plmt, arg->nlmt);
 
-	return  sat(arg->sum + error * KP,arg->plmt, arg->nlmt);
+	return  sat(arg->sum + error * KP,PLMT, NLMT);//arg->plmt, arg->nlmt);
 
 }
 float sat(float x, float max, float min){

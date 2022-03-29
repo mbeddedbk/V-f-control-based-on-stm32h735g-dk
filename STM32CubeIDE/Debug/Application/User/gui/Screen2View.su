@@ -3,13 +3,13 @@ Screen.hpp:154:18:virtual void touchgfx::Screen::handleKeyEvent(uint8_t)	0	stati
 Screen2ViewBase.hpp:93:18:virtual void Screen2ViewBase::button2ManualClicked()	0	static
 Screen2View.hpp:11:13:Screen2View::~Screen2View()	0	static
 Screen2View.cpp:17:6:virtual void Screen2View::tearDownScreen()	0	static
+Screen2View.cpp:93:6:virtual void Screen2View::button2DirectClicked()	0	static
 Screen2View.cpp:12:6:virtual void Screen2View::setupScreen()	0	static
 Screen2View.cpp:71:6:virtual void Screen2View::buttonClear_p2Clicked()	8	static
-Screen2View.cpp:92:6:virtual void Screen2View::button2DirectClicked()	0	static
-Screen2View.cpp:79:6:virtual void Screen2View::buttonSend_p2Clicked()	8	static
+Screen2View.cpp:79:6:virtual void Screen2View::buttonSend_p2Clicked()	0	static
 Screen2View.cpp:86:6:virtual void Screen2View::buttonPower_p2Clicked()	8	static
 Screen2View.hpp:11:13:virtual Screen2View::~Screen2View()	8	static
-Screen2View.cpp:96:6:virtual void Screen2View::handleTickEvent()	8	static
+Screen2View.cpp:97:6:virtual void Screen2View::handleTickEvent()	8	static
 Screen2View.cpp:7:1:Screen2View::Screen2View()	8	static
 Screen2View.cpp:22:6:void Screen2View::fillBuffer(uint8_t)	8	static
 Screen2View.cpp:29:6:virtual void Screen2View::button7_p2Clicked()	0	static
