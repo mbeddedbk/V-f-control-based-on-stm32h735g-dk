@@ -48,7 +48,7 @@ Application/User/Core/main.o: \
  ../../Middlewares/Third_Party/FreeRTOS/Source/include/task.h \
  ../../Middlewares/Third_Party/FreeRTOS/Source/include/list.h \
  ../../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h \
- ../../TouchGFX/App/app_touchgfx.h ../../Core/Inc/pi_cntrllr.h \
+ ../../TouchGFX/App/app_touchgfx.h \
  ../../Drivers/BSP/STM32H735G-DK/stm32h735g_discovery_ospi.h \
  ../../Core/Inc/stm32h735g_discovery_conf.h \
  ../../Drivers/BSP/STM32H735G-DK/stm32h735g_discovery_errno.h \
@@ -57,7 +57,8 @@ Application/User/Core/main.o: \
  ../../Drivers/BSP/STM32H735G-DK/../Components/s70kl1281/s70kl1281.h \
  ../../Core/Inc/s70kl1281_conf.h \
  ../../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h \
- ../../Middlewares/Third_Party/FreeRTOS/Source/include/task.h
+ ../../Middlewares/Third_Party/FreeRTOS/Source/include/task.h \
+ ../../Core/Inc/PI.h
 
 ../../Core/Inc/main.h:
 
@@ -157,8 +158,6 @@ Application/User/Core/main.o: \
 
 ../../TouchGFX/App/app_touchgfx.h:
 
-../../Core/Inc/pi_cntrllr.h:
-
 ../../Drivers/BSP/STM32H735G-DK/stm32h735g_discovery_ospi.h:
 
 ../../Core/Inc/stm32h735g_discovery_conf.h:
@@ -176,3 +175,5 @@ Application/User/Core/main.o: \
 ../../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h:
 
 ../../Middlewares/Third_Party/FreeRTOS/Source/include/task.h:
+
+../../Core/Inc/PI.h:

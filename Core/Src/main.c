@@ -21,7 +21,6 @@
 #include "main.h"
 #include "cmsis_os.h"
 #include "app_touchgfx.h"
-#include "pi_cntrllr.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -30,17 +29,17 @@
 #include "math.h"
 #include "FreeRTOS.h"
 #include "queue.h"
+#include "PI.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
-float KP=1.25,KI=0.05, NLMT = -300.0, PLMT = 300;
 static PI_DATA_t angularFreqPI =
 {
-.kp = 1.25f,
-.ki = 0.05f,
-.nlmt = -300.f,
-.plmt = 300.f,
+.kp = 3.0f,
+.ki = 0.08f,
+.nlmt = -2000.f,
+.plmt = 2000.f,
 .sum = 0};
 
 /* USER CODE END PTD */
@@ -55,6 +54,7 @@ static PI_DATA_t angularFreqPI =
 
 #define DIVIDE_BY_TWO_PI(x) (x / TWO_PI)
 #define MULTIPLY_BY_TWO_PI(x) (x * TWO_PI)
+#define SPEED_TO_RPM(x) ((x * 60.0) / 1000.0)
 
 /* USER CODE END PD */
 
@@ -109,11 +109,11 @@ uint32_t counterEnc = 0;
 int32_t signedCounterEnc = 0;
 float position = 0;
 int rpm = 0;
+float fl_rpm;
 float rpm_ref = 0;
 float speed = 0;
 float oldpos = 0;
 int indx = 0;
-float frequencyEnc = 0.0;
 float angularFrqEnc = 0;
 
 uint8_t piUsed = 0;
@@ -125,7 +125,9 @@ int newAvgRpm = 0;
 long sum = 0;
 int len = sizeof(arrNumbers) / sizeof(int);
 
-float offset = -8.985;//16.985;
+float offset = 0.0;//16.985;
+float temp_pi_control;
+float old_foo_freq = 0.0;
 
 /* USER CODE END PV */
 
@@ -150,10 +152,6 @@ extern void TouchGFX_Task(void *argument);
 /* USER CODE BEGIN PFP */
 
 void adjustRPM(uint32_t);
-/*void togglePiFlag(uint8_t piFlag)
-{
-	piUsed = piFlag;
-}*/
 void adjustMIAndFreq(uint32_t, float);
 void motorStart(void);
 float pi_control(PI_DATA_t* arg, float error);
@@ -896,7 +894,7 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOF_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(LCD_BL_CTRL_GPIO_Port, LCD_BL_CTRL_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOG, LCD_BL_CTRL_Pin|GPIO_PIN_5, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(LCD_DISP_GPIO_Port, LCD_DISP_Pin, GPIO_PIN_RESET);
@@ -904,12 +902,12 @@ static void MX_GPIO_Init(void)
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOC, RENDER_TIME_Pin|VSYNC_FREQ_Pin, GPIO_PIN_SET);
 
-  /*Configure GPIO pin : LCD_BL_CTRL_Pin */
-  GPIO_InitStruct.Pin = LCD_BL_CTRL_Pin;
+  /*Configure GPIO pins : LCD_BL_CTRL_Pin PG5 */
+  GPIO_InitStruct.Pin = LCD_BL_CTRL_Pin|GPIO_PIN_5;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(LCD_BL_CTRL_GPIO_Port, &GPIO_InitStruct);
+  HAL_GPIO_Init(GPIOG, &GPIO_InitStruct);
 
   /*Configure GPIO pin : LCD_DISP_Pin */
   GPIO_InitStruct.Pin = LCD_DISP_Pin;
@@ -965,9 +963,9 @@ void adjustRPM(uint32_t fooRPM)
 float pi_control(PI_DATA_t* arg, float error)
 {
 
-	arg->sum = sat(arg->sum + KI * error ,PLMT, NLMT);//arg->plmt, arg->nlmt);
+	arg->sum = sat(arg->sum + arg->ki * error ,arg->plmt, arg->nlmt);//arg->plmt, arg->nlmt);
 
-	return  sat(arg->sum + error * KP,PLMT, NLMT);//arg->plmt, arg->nlmt);
+	return  sat(arg->sum + error * arg->kp,arg->plmt, arg->nlmt);//arg->plmt, arg->nlmt);
 
 }
 float sat(float x, float max, float min){
@@ -990,7 +988,6 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)
 		counterEnc = __HAL_TIM_GET_COUNTER(htim);
 		signedCounterEnc = (int32_t)counterEnc;
 		position = signedCounterEnc/4.0;
-
 	}
 
 }
@@ -1007,10 +1004,18 @@ void adjustMIAndFreq(uint32_t foo_freq, float foo_MI)
 
 void adjustMIAndFreqforPI(float foo_freq, float foo_MI)
 {
+
+
+	if((foo_freq - old_foo_freq) >= 2){
+
 	modulationIndex = foo_MI;
 	frq = foo_freq;
+
 	upperLimit = (5000/foo_freq);
 	counter = 0;
+	old_foo_freq = foo_freq;
+	}
+
 }
 
 void motorStart(void)
@@ -1031,8 +1036,6 @@ void motorStart(void)
   * @retval None
   */
 /* USER CODE END Header_StartDefaultTask */
-
-
 void StartDefaultTask(void *argument)
 {
   /* USER CODE BEGIN 5 */
@@ -1043,7 +1046,6 @@ void StartDefaultTask(void *argument)
   }
   /* USER CODE END 5 */
 }
-
 
 /* MPU Configuration */
 
@@ -1118,13 +1120,16 @@ void MPU_Config(void)
   * @param  htim : TIM handle
   * @retval None
   */
-void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) // 5 kHz in every 0.0002 s
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
   /* USER CODE BEGIN Callback 0 */
 
 
 	if (htim->Instance == TIM14)
 	{
+		// Buraya PG5 i toggle etme olayı denenecek
+		//HAL_GPIO_WritePin(GPIOG, GPIO_PIN_5, GPIO_PIN_SET);
+
 		float theta = (frq * TWO_PI * counter) * time;
 		float dutyA = ((sinf(theta) * modulationIndex) * 0.5f) + 0.5f;
 		float dutyB = ((sinf(theta + (TWO_PI_DIV_BY_THREE)) * modulationIndex) * 0.5f) + 0.5f;
@@ -1160,17 +1165,20 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) // 5 kHz in every 0.
 			rpm_ref = angularFrq*60/TWO_PI;
 			speed = (position - oldpos) * 25; // speed in clicks/sec
 
-			float fl_rpm;
-			if(rpm_ref <= 400)
+
+		/*	if(rpm_ref <= 400)
 				fl_rpm = (1.0063*((0.0707304 * speed) - 8.75)) + offset;//(0.994 * ((0.0707304 * speed) - 8.75)) - 6.1246;//(1.0059 * ((0.0707304 * speed) - 8.75)) + 6.2507;//(1.04 * ((1.1335*((speed * 60))/1000.0) + 15.8)) -25.182; //1.1335*((speed * 60)/1000.0) + 15.8;
 			else if(rpm_ref > 400 && rpm_ref <= 700)
 				fl_rpm = (1.0063*((0.0707304 * speed) - 8.75)) + (offset - 20);
 			else if(rpm_ref > 700 && rpm_ref < 900)
 				fl_rpm = (1.0063*((0.0707304 * speed) - 8.75)) + (offset - 30);
 			else
-				fl_rpm = (1.0063*((0.0707304 * speed) - 8.75)) + (offset - 40);
+				fl_rpm = (1.0063*((0.0707304 * speed) - 8.75)) + (offset - 40); */
 
-			(rpm < 0) ? (rpm = 0) : (rpm = (int)fl_rpm);
+			//fl_rpm = (1.0063*(0.0707304 * speed)) + offset;
+			fl_rpm = (1.0572 * SPEED_TO_RPM(speed)) - 2.1893;
+
+			(rpm < 0) ? (rpm = 0, fl_rpm = 0.0) : (rpm = (int)fl_rpm);
 			angularFrqEnc = (fl_rpm / 60.0f) * TWO_PI;
 
 			newAvgRpm = movingAvg(arrNumbers, &sum, pos, len, rpm);
@@ -1181,7 +1189,8 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) // 5 kHz in every 0.
 
 			if(piUsed == 1)
 			{
-				PI_angularFrq = angularFrqEnc + pi_control(&angularFreqPI, angularFrq - angularFrqEnc);
+				temp_pi_control = pi_control(&angularFreqPI, angularFrq - angularFrqEnc);
+				PI_angularFrq = angularFrqEnc + temp_pi_control;
 				limitAngFrq();
 				setModulationIndex();
 				if(angularFrq != 0) adjustMIAndFreqforPI(DIVIDE_BY_TWO_PI(PI_angularFrq), modulationIndex);
@@ -1190,6 +1199,8 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) // 5 kHz in every 0.
 			oldpos = position;
 			indx = 0;
 		}
+
+		//HAL_GPIO_WritePin(GPIOG, GPIO_PIN_5, GPIO_PIN_RESET);
 	}
   /* USER CODE END Callback 0 */
   if (htim->Instance == TIM6) {
