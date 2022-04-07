@@ -12,4 +12,4 @@ With the new master branch the user can control the induction motor with both op
 ![Screen2](https://user-images.githubusercontent.com/78253199/162137257-00f2aa32-de74-4247-ba68-9fc5e8be8bc7.png)
 
 ## Additional Hardware
-For driving the induction motor a SiC/IGBT 3 Phase Inverter Development Kit is used as an interface between the STM32H735G-DK and IM. The related product link can be seen here: https://www.taraztechnologies.com/product/power-electronics-modules/power/3-phase-inverter-development-kit/
+For driving the induction motor a SiC/IGBT 3 Phase Inverter Development Kit from Taraz Technologies is used as an interface between the STM32H735G-DK and IM. The related product link can be seen here: https://www.taraztechnologies.com/product/power-electronics-modules/power/3-phase-inverter-development-kit/
