@@ -1,4 +1,4 @@
-# Your Keypad and Text Area Should Look Like the Picture Below
+# V/Hz Constant Control of an Induction Motor
 
 Remainders:
 - This code is only compatible with STM32H735G-DK
